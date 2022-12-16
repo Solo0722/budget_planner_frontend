@@ -1,14 +1,22 @@
-import { HiSquares2X2, HiFolderPlus, HiFolder } from "react-icons/hi2";
-
-export const sidebarLinks = [
+export const heroItems = [
   {
-    name: "Dashboard",
-    icon: <HiSquares2X2 />,
-    url: "",
+    title: "",
+    img: "/assets/pic1.jpg",
   },
   {
-    name: "New Budget",
-    icon: <HiFolderPlus />,
-    url: "",
+    title: "",
+    img: "/assets/pic2.jpg",
+  },
+  {
+    title: "",
+    img: "/assets/pic3.jpg",
+  },
+  {
+    title: "",
+    img: "/assets/pic4.jpg",
+  },
+  {
+    title: "",
+    img: "/assets/pic5.jpg",
   },
 ];
