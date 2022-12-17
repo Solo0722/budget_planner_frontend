@@ -5,14 +5,14 @@ import MainNav from "../../components/MainNav";
 import styled from "styled-components";
 import { GlobalContext } from "../../context/context";
 import Budget from "./budget";
-import { TourProps,  Tour } from "antd";
+import { TourProps, Tour } from "antd";
 
 const Main = () => {
   const { currentUser, isNewUser, setIsNewUser } = useContext(GlobalContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    (!currentUser || !currentUser.length) && navigate("/auth");
+    !currentUser && navigate("/auth");
   }, [currentUser]);
 
   const ref1 = useRef(null);

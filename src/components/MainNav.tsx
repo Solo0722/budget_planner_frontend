@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import colors from "../constants/colors";
-import { Avatar, Dropdown } from "antd";
+import { Avatar, Badge, Button, Dropdown } from "antd";
 import type { MenuProps } from "antd";
 import { GlobalContext } from "../context/context";
-import { UserOutlined } from "@ant-design/icons";
+import { BellOutlined, UserOutlined } from "@ant-design/icons";
 
 const MainNav = ({ ref4 }: any) => {
   const { currentUser, signUserOut } = useContext(GlobalContext);
@@ -30,6 +30,16 @@ const MainNav = ({ ref4 }: any) => {
         <strong>Budget Planner</strong>
       </h4>
       <ToolbarWrapper>
+        <Button
+          type="text"
+          style={{ marginRight: "5px" }}
+          icon={
+            <Badge dot>
+              <BellOutlined />
+            </Badge>
+          }
+        />
+
         <Dropdown
           menu={{
             items,

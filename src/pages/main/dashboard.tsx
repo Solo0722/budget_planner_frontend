@@ -5,6 +5,7 @@ import Toolbar from "../../components/Toolbar";
 import { PlusCircleFilled } from "@ant-design/icons";
 import CreateBudget from "../../components/CreateBudget";
 import EmptyState from "../../components/EmptyState";
+import BudgetCard from "../../components/BudgetCard";
 
 const Dashboard = ({ ref1, ref2, ref3 }: any) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -38,7 +39,11 @@ const Dashboard = ({ ref1, ref2, ref3 }: any) => {
         closeModal={closeModal}
       />
       <BodyContainer>
-        <EmptyState ref3={ref3} />
+        {/* <EmptyState ref3={ref3} /> */}
+        <BudgetCard />
+        <BudgetCard />
+        <BudgetCard />
+        <BudgetCard />
       </BodyContainer>
     </DashboardWrapper>
   );

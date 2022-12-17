@@ -8,7 +8,7 @@ import React, { createContext, useEffect } from "react";
 import { auth, provider } from "../utils/firebase";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
-import {  Modal } from "antd";
+import { Modal } from "antd";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 
 type ProviderProps = {
@@ -34,7 +34,7 @@ const GlobalProvider = ({ children }: ProviderProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    (!currentUser || !currentUser.length ) && navigate("/auth");
+    !currentUser && navigate("/auth");
   }, [currentUser]);
 
   const signInWithGoogle = () => {

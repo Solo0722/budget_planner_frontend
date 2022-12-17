@@ -1,4 +1,4 @@
-import {  Space, Tag } from "antd";
+import { Badge, Space, Tag } from "antd";
 import moment from "moment";
 import React from "react";
 import styled from "styled-components";
@@ -6,24 +6,26 @@ import colors from "../constants/colors";
 
 const BudgetCard = () => {
   return (
-    <BudgetCardWrapper>
-      <Space direction="vertical" style={{ fontFamily: "Nunito Sans" }}>
-        <small className="date-container">
-          {moment().format("dddd, Do MMMM YYYY")}
-        </small>
-        <h4>Budget for 2023</h4>
-        <small style={{ color: "GrayText" }}>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae
-          aspernatur labore porro quod
-        </small>
-        <Tag className="tag" color="geekblue">
-          Total income: $123.00
-        </Tag>
-        <Tag className="tag" color="magenta">
-          Total expenses: $101.00
-        </Tag>
-      </Space>
-    </BudgetCardWrapper>
+    <Badge.Ribbon text="monthly" color="magenta">
+      <BudgetCardWrapper>
+        <Space direction="vertical" style={{ fontFamily: "Nunito Sans" }}>
+          <small className="date-container">
+            {moment().format("dddd, Do MMMM YYYY")}
+          </small>
+          <h4>Budget for 2023</h4>
+          <small style={{ color: "GrayText" }}>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae
+            aspernatur labore porro quod
+          </small>
+          <Tag className="tag" color="geekblue">
+            Total income: $123.00
+          </Tag>
+          <Tag className="tag" color="geekblue">
+            Total expenses: $101.00
+          </Tag>
+        </Space>
+      </BudgetCardWrapper>
+    </Badge.Ribbon>
   );
 };
 
