@@ -1,4 +1,4 @@
-import { Rate, Space, Tag } from "antd";
+import {  Space, Tag } from "antd";
 import moment from "moment";
 import React from "react";
 import styled from "styled-components";
@@ -8,7 +8,7 @@ const BudgetCard = () => {
   return (
     <BudgetCardWrapper>
       <Space direction="vertical" style={{ fontFamily: "Nunito Sans" }}>
-        <small style={{ color: `${colors.primary}` }}>
+        <small className="date-container">
           {moment().format("dddd, Do MMMM YYYY")}
         </small>
         <h4>Budget for 2023</h4>
@@ -52,12 +52,9 @@ const BudgetCardWrapper = styled.div`
     margin: 10px 0;
   }
 
-  /* .tag {
-    color: #111;
-    background-color: #edf2f7;
-    border: none;
-    margin: 5px 0;
-  } */
+  .date-container {
+    color: ${colors.primary};
+  }
 
   @media screen and (max-width: 486px) {
     & {

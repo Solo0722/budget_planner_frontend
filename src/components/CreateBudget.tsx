@@ -1,6 +1,6 @@
-import { PlusCircleFilled, PlusOutlined } from "@ant-design/icons";
-import { Modal, Button, Input, Form, Select } from "antd";
-import React, { useState } from "react";
+import { PlusOutlined } from "@ant-design/icons";
+import { Modal, Button, Input, Select } from "antd";
+import React from "react";
 import styled from "styled-components";
 
 interface ICreateBudget {
@@ -19,12 +19,6 @@ const CreateBudget = ({
     closeModal();
   };
 
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
-  };
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
 
   return (
     <Modal

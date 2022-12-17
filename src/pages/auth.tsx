@@ -1,16 +1,34 @@
-import { Carousel, Form, Image, Button, message, Input, Divider } from "antd";
-import React from "react";
+import { Form, Button, message, Input, Divider } from "antd";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import colors from "../constants/colors";
 import { useState } from "react";
-import { LockOutlined, MailFilled, MailOutlined } from "@ant-design/icons";
+import { GlobalContext } from "../context/context";
+
+interface IFormProps {
+  email: string;
+  password: string;
+  confirmPassword?: string;
+}
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
   const [form] = Form.useForm();
+  const { signInWithGoogle, emailSignIn, emailSignUp } =
+    useContext(GlobalContext);
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: IFormProps) => {
     console.log("Success:", values);
+
+    if (isSignUp) {
+      if (values.confirmPassword === values.password) {
+        emailSignUp?.(values);
+      } else {
+        message.error("Passwords do not match!");
+      }
+    } else {
+      emailSignIn?.(values);
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -60,7 +78,7 @@ const Auth = () => {
                 },
               ]}
             >
-              <Input placeholder="Email"  />
+              <Input placeholder="Email" />
             </Form.Item>
 
             <Form.Item
@@ -68,14 +86,12 @@ const Auth = () => {
               rules={[
                 {
                   required: true,
-                  min: 5,
+                  min: 7,
                   message: "Invalid password!",
                 },
               ]}
             >
-              <Input.Password
-                placeholder="Password"
-              />
+              <Input.Password placeholder="Password" />
             </Form.Item>
 
             {isSignUp && (
@@ -84,14 +100,12 @@ const Auth = () => {
                 rules={[
                   {
                     required: true,
-                    min: 5,
+                    min: 7,
                     message: "Invalid password!",
                   },
                 ]}
               >
-                <Input.Password
-                  placeholder="Comfirm password"
-                />
+                <Input.Password placeholder="Comfirm password" />
               </Form.Item>
             )}
 
@@ -112,11 +126,14 @@ const Auth = () => {
             <Divider />
           </DividerContainer>
           <Button
+            onClick={signInWithGoogle}
             block
             style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              border: "none",
+              boxShadow: "0px 1px 2px rgba(0, 0, 0, 0.4)",
             }}
             icon={
               <img

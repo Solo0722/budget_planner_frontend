@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Toolbar from "../../components/Toolbar";
 import { PlusCircleFilled } from "@ant-design/icons";
-import BudgetCard from "../../components/BudgetCard";
 import CreateBudget from "../../components/CreateBudget";
+import EmptyState from "../../components/EmptyState";
 
-const Dashboard = () => {
+const Dashboard = ({ ref1, ref2, ref3 }: any) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -15,6 +15,7 @@ const Dashboard = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
   return (
     <DashboardWrapper>
       <Toolbar
@@ -26,6 +27,7 @@ const Dashboard = () => {
               icon={<PlusCircleFilled />}
               type="text"
               onClick={showModal}
+              ref={ref2}
             />
           </Tooltip>,
         ]}
@@ -36,10 +38,7 @@ const Dashboard = () => {
         closeModal={closeModal}
       />
       <BodyContainer>
-        <BudgetCard />
-        <BudgetCard />
-        <BudgetCard />
-        <BudgetCard />
+        <EmptyState ref3={ref3} />
       </BodyContainer>
     </DashboardWrapper>
   );

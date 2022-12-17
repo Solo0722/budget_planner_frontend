@@ -1,19 +1,48 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import colors from "../constants/colors";
-import { Button, Avatar, Badge } from "antd";
-import { HiOutlineBell } from "react-icons/hi2";
-import { PlusCircleFilled } from "@ant-design/icons";
+import { Avatar, Dropdown } from "antd";
+import type { MenuProps } from "antd";
+import { GlobalContext } from "../context/context";
+import { UserOutlined } from "@ant-design/icons";
 
-const MainNav = () => {
+const MainNav = ({ ref4 }: any) => {
+  const { currentUser, signUserOut } = useContext(GlobalContext);
+
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: "Profile",
+    },
+    {
+      key: "2",
+      label: "Switch theme",
+    },
+    {
+      key: "3",
+      label: "Sign out",
+      onClick: signUserOut,
+    },
+  ];
   return (
     <NavWrapper>
       <h4>
         <strong>Budget Planner</strong>
       </h4>
       <ToolbarWrapper>
-        {/* <Button icon={<PlusCircleFilled />}>New budget</Button> */}
-        <Avatar src="https://starrfm.com.gh/wp-content/uploads/2021/12/ed-sheeran-press-photo-2018-1519211115-list-handheld-0.png" />
+        <Dropdown
+          menu={{
+            items,
+          }}
+        >
+          <Avatar
+            src={currentUser && currentUser?.user?.photoURL}
+            style={{ cursor: "pointer" }}
+            ref={ref4}
+          >
+            <UserOutlined />
+          </Avatar>
+        </Dropdown>
       </ToolbarWrapper>
     </NavWrapper>
   );

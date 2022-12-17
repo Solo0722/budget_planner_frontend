@@ -41,11 +41,6 @@ const ToolbarWrapper = styled.div`
   align-items: center;
   -webkit-box-pack: justify;
   justify-content: space-between;
-  /* background: #fff;
-  box-shadow: rgb(16 16 17 / 2%) 0px 1px 2px, rgb(16 16 17 / 1%) 0px 3.4px 8px,
-    rgb(16 16 17 / 0%) 0px 12px 30px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
-  /* border: 1px solid red; */
   padding: 0 1rem;
   margin-bottom: 15px;
   font-family: "Nunito Sans";
