@@ -1,25 +1,27 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import colors from "../constants/colors";
-import { Avatar, Badge, Button, Dropdown } from "antd";
+import { Avatar, Badge, Button, Dropdown, Switch } from "antd";
 import type { MenuProps } from "antd";
 import { GlobalContext } from "../context/context";
 import { BellOutlined, UserOutlined } from "@ant-design/icons";
+import { HiOutlineSun, HiOutlineMoon } from "react-icons/hi";
 
-const MainNav = ({ ref4 }: any) => {
+const MainNav = ({ ref4, appTheme, setAppTheme }: any) => {
   const { currentUser, signUserOut } = useContext(GlobalContext);
+
+  const themeToggler = () => {
+    appTheme === "light" ? setAppTheme("dark") : setAppTheme("light");
+  };
 
   const items: MenuProps["items"] = [
     {
       key: "1",
       label: "Profile",
     },
+
     {
       key: "2",
-      label: "Switch theme",
-    },
-    {
-      key: "3",
       label: "Sign out",
       onClick: signUserOut,
     },
@@ -32,7 +34,23 @@ const MainNav = ({ ref4 }: any) => {
       <ToolbarWrapper>
         <Button
           type="text"
-          style={{ marginRight: "5px" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onClick={themeToggler}
+          icon={
+            appTheme === "light" ? (
+              <HiOutlineMoon size={18} />
+            ) : (
+              <HiOutlineSun size={18} />
+            )
+          }
+        />
+        <Button
+          type="text"
+          style={{ margin: "0 5px" }}
           icon={
             <Badge dot>
               <BellOutlined />
@@ -47,8 +65,9 @@ const MainNav = ({ ref4 }: any) => {
         >
           <Avatar
             src={currentUser && currentUser?.user?.photoURL}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", marginLeft: "5px" }}
             ref={ref4}
+            size={"small"}
           >
             <UserOutlined />
           </Avatar>
@@ -66,10 +85,10 @@ const NavWrapper = styled.nav`
   align-items: center;
   -webkit-box-pack: justify;
   justify-content: space-between;
-  background: #fff;
+  background: ${({ theme }) => theme.body};
   box-shadow: rgb(16 16 17 / 2%) 0px 1px 2px, rgb(16 16 17 / 1%) 0px 3.4px 8px,
     rgb(16 16 17 / 0%) 0px 12px 30px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid ${({ theme }) => theme.border};
   padding: 0 1rem;
   position: sticky;
   top: 0;
@@ -79,12 +98,12 @@ const NavWrapper = styled.nav`
     color: ${colors.primary};
     font-family: "Lobster Two";
   }
-
-  button {
-    margin-right: 10px;
-  }
 `;
 
-const ToolbarWrapper = styled.div``;
+const ToolbarWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 
 export default MainNav;

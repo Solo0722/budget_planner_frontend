@@ -169,7 +169,7 @@ const HeroContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: #fafbf8;
+  background: ${({ theme }) => theme.herobg};
   text-align: center;
 
   img {

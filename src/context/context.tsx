@@ -33,10 +33,6 @@ const GlobalProvider = ({ children }: ProviderProps) => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    !currentUser && navigate("/auth");
-  }, [currentUser]);
-
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {

@@ -4,22 +4,16 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ConfigProvider } from "antd";
+import { ThemeProvider } from "styled-components";
+import { darkTheme, lightTheme } from "./constants/theme";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: "#6C63FF",
-          borderRadius: 3,
-        },
-      }}
-    >
-      <App />
-    </ConfigProvider>
+    <App />
   </React.StrictMode>
 );
 

@@ -17,12 +17,8 @@ const BudgetCard = () => {
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae
             aspernatur labore porro quod
           </small>
-          <Tag className="tag" color="geekblue">
-            Total income: $123.00
-          </Tag>
-          <Tag className="tag" color="geekblue">
-            Total expenses: $101.00
-          </Tag>
+          <Tag className="tag">Total income: $123.00</Tag>
+          <Tag className="tag">Total expenses: $101.00</Tag>
         </Space>
       </BudgetCardWrapper>
     </Badge.Ribbon>

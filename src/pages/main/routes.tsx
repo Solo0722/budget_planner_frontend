@@ -7,7 +7,12 @@ import { GlobalContext } from "../../context/context";
 import Budget from "./budget";
 import { TourProps, Tour } from "antd";
 
-const Main = () => {
+interface IProps {
+  appTheme: string;
+  setAppTheme: (appTheme: string) => void;
+}
+
+const Main = ({ appTheme, setAppTheme }: IProps) => {
   const { currentUser, isNewUser, setIsNewUser } = useContext(GlobalContext);
   const navigate = useNavigate();
 
@@ -58,7 +63,7 @@ const Main = () => {
 
   return (
     <>
-      <MainNav ref4={ref4} />
+      <MainNav ref4={ref4} appTheme={appTheme} setAppTheme={setAppTheme} />
       <MainWrapper>
         <Routes>
           <Route
