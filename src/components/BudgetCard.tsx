@@ -1,17 +1,23 @@
 import { Badge, Space, Tag } from "antd";
 import moment from "moment";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import colors from "../constants/colors";
 
 const BudgetCard = ({ item }: any) => {
+  const navigate = useNavigate();
+
   return (
     <Badge.Ribbon
       text={item.budgetType}
       color={getRibbonColor(item.budgetType)}
     >
-      <BudgetCardWrapper>
-        <Space direction="vertical" style={{ fontFamily: "Nunito Sans" }}>
+      <BudgetCardWrapper onClick={() => navigate(`/budgets/${item.id}`)}>
+        <Space
+          direction="vertical"
+          style={{ fontFamily: "Nunito Sans", width: "100%" }}
+        >
           <small className="date-container">
             {moment().format("dddd, Do MMMM YYYY")}
           </small>
@@ -37,8 +43,8 @@ const getRibbonColor = (type: string) => {
 };
 
 const BudgetCardWrapper = styled.div`
-  width: 250px;
-  min-height: 180px;
+  width: 300px;
+  min-height: 200px;
   padding: 1rem;
   border-radius: 7px;
   margin: 10px 0;

@@ -21,9 +21,9 @@ const Main = ({ appTheme, setAppTheme }: IProps) => {
   const { currentUser, isNewUser, setIsNewUser } = useContext(GlobalContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    !currentUser && navigate("/auth");
-  }, [currentUser]);
+  // useEffect(() => {
+  //   !currentUser && navigate("/auth");
+  // }, [currentUser]);
 
   const ref1 = useRef(null);
   const ref2 = useRef(null);

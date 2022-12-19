@@ -1,14 +1,50 @@
-import { DeleteFilled, PrinterOutlined } from "@ant-design/icons";
-import { Button, Tooltip } from "antd";
-import React from "react";
+import {
+  DeleteFilled,
+  ExclamationCircleFilled,
+  PrinterOutlined,
+} from "@ant-design/icons";
+import { Button, Modal, Tooltip } from "antd";
+import { deleteDoc, doc, getDoc } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Toolbar from "../../components/Toolbar";
+import { db } from "../../utils/firebase";
 
 const Budget = () => {
+  const { budgetId } = useParams();
+  const [currentBudget, setCurrentBudget] = useState<any>({});
+  const navigate = useNavigate();
+
+  console.log(budgetId);
+
+  const getSingleBudget = (budgetId: string) => {
+    const docRef = doc(db, "budgets", budgetId);
+    getDoc(docRef)
+      .then((doc: any) => setCurrentBudget(doc.data()))
+      .catch((err) => console.log(err));
+  };
+
+  const deleteBudget = (budgetId: string) => {
+    const docRef = doc(db, "budgets", budgetId);
+    Modal.confirm({
+      title: "Are you sure you want to delete this budget?",
+      icon: <ExclamationCircleFilled />,
+      content: "This action is irreversible.",
+      onOk() {
+        deleteDoc(docRef)
+          .then(() => navigate(-1))
+          .catch((err) => console.log(err));
+      },
+    });
+  };
+
+  useEffect(() => getSingleBudget(budgetId || ""), []);
+
   return (
     <BudgetPageWrapper>
       <Toolbar
-        title="Budget for 2023 (Yearly)"
+        title={currentBudget.title || ""}
         isDashboard={false}
         tools={[
           <Tooltip title="Print budget">
@@ -23,6 +59,7 @@ const Budget = () => {
               icon={<DeleteFilled />}
               type="text"
               style={{ color: "red", marginLeft: "5px" }}
+              onClick={() => deleteBudget(budgetId || "")}
             />
           </Tooltip>,
         ]}

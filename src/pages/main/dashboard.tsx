@@ -1,4 +1,4 @@
-import { Button, Tooltip } from "antd";
+import { Button, Select, Tooltip } from "antd";
 import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import Toolbar from "../../components/Toolbar";
@@ -25,12 +25,47 @@ const Dashboard = ({ ref1, ref2, ref3 }: any) => {
     getAllBudgets?.();
   }, []);
 
+  const handleBudgetFilter = (value: string) => {
+    if (value === "all") {
+      getAllBudgets?.();
+    } else {
+      getAllBudgets?.(value);
+    }
+  };
+
   return (
     <DashboardWrapper>
       <Toolbar
         title="Budgets"
         isDashboard={true}
         tools={[
+          <Select
+            defaultValue="all"
+            onChange={handleBudgetFilter}
+            bordered={false}
+            style={{
+              marginRight: "10px",
+              boxShadow: "0px 2px 2px rgba(0,0,0,0.1)",
+            }}
+            options={[
+              {
+                value: "all",
+                label: "All",
+              },
+              {
+                value: "daily",
+                label: "Daily",
+              },
+              {
+                value: "monthly",
+                label: "Monthly",
+              },
+              {
+                value: "yearly",
+                label: "Yearly",
+              },
+            ]}
+          />,
           <Tooltip title="New budget">
             <Button
               icon={<PlusCircleFilled />}
@@ -63,6 +98,7 @@ const DashboardWrapper = styled.div`
 `;
 
 const BodyContainer = styled.div`
+  width: 100%;
   padding: 1rem;
   display: flex;
   flex-direction: row;

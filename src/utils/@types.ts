@@ -51,5 +51,10 @@ export type ContextProps = {
   isNewUser?: boolean;
   budgets?: any[];
   setIsNewUser?: (state: boolean) => void;
-  getAllBudgets?: () => void;
+  getAllBudgets?: (bt?: string) => void;
+  createNewBudget?: (state: {
+    title: string;
+    description: string;
+    budgetType: string;
+  }) => void;
 };

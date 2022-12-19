@@ -1,8 +1,10 @@
 import { PlusCircleFilled, PlusOutlined } from "@ant-design/icons";
 import { Modal, Button, Input, Select, Form } from "antd";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { ICreateBudget } from "../utils/@types";
+import { GlobalContext } from "../context/context";
+import { serverTimestamp } from "firebase/firestore";
 
 const CreateBudget = ({
   isModalOpen,
@@ -11,6 +13,8 @@ const CreateBudget = ({
 }: ICreateBudget) => {
   const [form] = Form.useForm();
 
+  const { createNewBudget } = useContext(GlobalContext);
+
   const onFinish = (values: {
     title: string;
     description: string;
@@ -18,8 +22,10 @@ const CreateBudget = ({
   }) => {
     console.log("Success:", values);
 
+    createNewBudget?.(values);
     form.resetFields();
     closeModal();
+    window.location.reload();
   };
 
   const onFinishFailed = (errorInfo: any) => {
