@@ -1,15 +1,13 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import styled from "styled-components";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-
-interface IToolbar {
-  title: string;
-  isDashboard: boolean;
-  tools?: ReactElement[];
-}
+import { useNavigate } from "react-router-dom";
+import { IToolbar } from "../utils/@types";
 
 const Toolbar = ({ title, isDashboard, tools }: IToolbar) => {
+  const navigate = useNavigate();
+
   return (
     <ToolbarWrapper>
       <div className="title-part">
@@ -18,6 +16,7 @@ const Toolbar = ({ title, isDashboard, tools }: IToolbar) => {
             type="text"
             icon={<ArrowLeftOutlined />}
             style={{ marginRight: "5px" }}
+            onClick={() => navigate(-1)}
           />
         )}
         <p>

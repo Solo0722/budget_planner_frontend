@@ -4,25 +4,36 @@ import React from "react";
 import styled from "styled-components";
 import colors from "../constants/colors";
 
-const BudgetCard = () => {
+const BudgetCard = ({ item }: any) => {
   return (
-    <Badge.Ribbon text="monthly" color="magenta">
+    <Badge.Ribbon
+      text={item.budgetType}
+      color={getRibbonColor(item.budgetType)}
+    >
       <BudgetCardWrapper>
         <Space direction="vertical" style={{ fontFamily: "Nunito Sans" }}>
           <small className="date-container">
             {moment().format("dddd, Do MMMM YYYY")}
           </small>
-          <h4>Budget for 2023</h4>
-          <small style={{ color: "GrayText" }}>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae
-            aspernatur labore porro quod
-          </small>
+          <h4>{item.title}</h4>
+          <small style={{ color: "GrayText" }}>{item.description}</small>
           <Tag className="tag">Total income: $123.00</Tag>
           <Tag className="tag">Total expenses: $101.00</Tag>
         </Space>
       </BudgetCardWrapper>
     </Badge.Ribbon>
   );
+};
+
+const getRibbonColor = (type: string) => {
+  switch (type) {
+    case "daily":
+      return "magenta";
+    case "monthly":
+      return "cyan";
+    case "yearly":
+      return "green";
+  }
 };
 
 const BudgetCardWrapper = styled.div`
@@ -54,7 +65,7 @@ const BudgetCardWrapper = styled.div`
     color: ${colors.primary};
   }
 
-  @media screen and (max-width: 486px) {
+  @media screen and (max-width: 600px) {
     & {
       width: 100%;
     }

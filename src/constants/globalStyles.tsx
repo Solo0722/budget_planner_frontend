@@ -6,6 +6,7 @@ export const GlobalStyles = createGlobalStyle`
         color:${({ theme }: any) => theme.text};
           font-family: "Lato", "Nunito Sans", sans-serif;
         transition:all 0.50s linear;
+        scroll-behavior:smooth;
     }
     * {
   margin: 0;

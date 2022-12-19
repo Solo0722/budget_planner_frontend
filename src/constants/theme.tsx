@@ -1,10 +1,4 @@
-interface ITheme {
-  body: string;
-  text: string;
-  background: string;
-  herobg: string;
-  border: string;
-}
+import { ITheme } from "../utils/@types";
 
 export const lightTheme: ITheme = {
   body: "#fff",

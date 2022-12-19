@@ -1,16 +1,21 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+  lazy,
+  Suspense,
+} from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Dashboard from "./dashboard";
 import MainNav from "../../components/MainNav";
 import styled from "styled-components";
 import { GlobalContext } from "../../context/context";
-import Budget from "./budget";
 import { TourProps, Tour } from "antd";
+import Spinner from "../../utils/spinner";
+import { IProps } from "../../utils/@types";
 
-interface IProps {
-  appTheme: string;
-  setAppTheme: (appTheme: string) => void;
-}
+const Budget = lazy(() => import("./budget"));
 
 const Main = ({ appTheme, setAppTheme }: IProps) => {
   const { currentUser, isNewUser, setIsNewUser } = useContext(GlobalContext);
@@ -65,13 +70,15 @@ const Main = ({ appTheme, setAppTheme }: IProps) => {
     <>
       <MainNav ref4={ref4} appTheme={appTheme} setAppTheme={setAppTheme} />
       <MainWrapper>
-        <Routes>
-          <Route
-            path="/"
-            element={<Dashboard ref1={ref1} ref2={ref2} ref3={ref3} />}
-          />
-          <Route path="/budgets/:budgetId" element={<Budget />} />
-        </Routes>
+        <Suspense fallback={<Spinner />}>
+          <Routes>
+            <Route
+              path="/"
+              element={<Dashboard ref1={ref1} ref2={ref2} ref3={ref3} />}
+            />
+            <Route path="/budgets/:budgetId" element={<Budget />} />
+          </Routes>
+        </Suspense>
         <Tour
           open={open}
           onClose={() => {
@@ -93,6 +100,11 @@ const MainWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
 
+  @media screen and (max-width: 768px) {
+    & {
+      padding: 2rem;
+    }
+  }
   @media screen and (max-width: 486px) {
     & {
       padding: 1rem;

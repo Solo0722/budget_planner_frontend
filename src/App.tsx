@@ -23,6 +23,7 @@ function App() {
         token: {
           colorPrimary: "#6C63FF",
           borderRadius: 3,
+          fontFamily: "Lato,Nunito Sans,sans-serif",
         },
         algorithm:
           appTheme === "light" ? theme.defaultAlgorithm : theme.darkAlgorithm,

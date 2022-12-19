@@ -4,12 +4,7 @@ import styled from "styled-components";
 import colors from "../constants/colors";
 import { useState } from "react";
 import { GlobalContext } from "../context/context";
-
-interface IFormProps {
-  email: string;
-  password: string;
-  confirmPassword?: string;
-}
+import { IFormProps } from "../utils/@types";
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
@@ -50,9 +45,13 @@ const Auth = () => {
             Save,manage and track your financies using this web application
             designed for your budgeting needs.
           </p>
+          <br />
+          <Button type="primary" href="#auth" className="get-started-btn">
+            Get started
+          </Button>
         </div>
       </HeroContainer>
-      <FormContainer>
+      <FormContainer id="auth">
         <Wrapper>
           <h3>
             {isSignUp ? "Create a new account" : "Sign in to your account"}
@@ -155,11 +154,20 @@ const Auth = () => {
 
 const AuthContainer = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  scroll-behavior: smooth;
+
+  @media screen and (max-width: 600px) {
+    & {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 `;
 
 const HeroContainer = styled.div`
@@ -189,6 +197,20 @@ const HeroContainer = styled.div`
     margin: auto;
     font-family: "Lato";
   }
+
+  & .get-started-btn {
+    display: none;
+  }
+
+  @media screen and (max-width: 600px) {
+    & {
+      width: 100%;
+    }
+
+    & .get-started-btn {
+      display: inline-block;
+    }
+  }
 `;
 
 const FormContainer = styled.div`
@@ -198,6 +220,12 @@ const FormContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: 2rem;
+
+  @media screen and (max-width: 600px) {
+    & {
+      width: 100%;
+    }
+  }
 `;
 
 const Wrapper = styled.div`

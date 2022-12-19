@@ -1,13 +1,17 @@
 import { Button, Tooltip } from "antd";
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import Toolbar from "../../components/Toolbar";
 import { PlusCircleFilled } from "@ant-design/icons";
 import CreateBudget from "../../components/CreateBudget";
 import EmptyState from "../../components/EmptyState";
 import BudgetCard from "../../components/BudgetCard";
+import Spinner from "../../utils/spinner";
+import { GlobalContext } from "../../context/context";
 
 const Dashboard = ({ ref1, ref2, ref3 }: any) => {
+  const { getAllBudgets, budgets } = useContext(GlobalContext);
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -16,6 +20,10 @@ const Dashboard = ({ ref1, ref2, ref3 }: any) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    getAllBudgets?.();
+  }, []);
 
   return (
     <DashboardWrapper>
@@ -39,11 +47,11 @@ const Dashboard = ({ ref1, ref2, ref3 }: any) => {
         closeModal={closeModal}
       />
       <BodyContainer>
-        {/* <EmptyState ref3={ref3} /> */}
-        <BudgetCard />
-        <BudgetCard />
-        <BudgetCard />
-        <BudgetCard />
+        {!budgets || !budgets.length ? (
+          <EmptyState ref3={ref3} />
+        ) : (
+          budgets.map((item) => <BudgetCard item={item} id={item.id} />)
+        )}
       </BodyContainer>
     </DashboardWrapper>
   );
