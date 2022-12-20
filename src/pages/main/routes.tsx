@@ -18,12 +18,13 @@ import { IProps } from "../../utils/@types";
 const Budget = lazy(() => import("./budget"));
 
 const Main = ({ appTheme, setAppTheme }: IProps) => {
-  const { currentUser, isNewUser, setIsNewUser } = useContext(GlobalContext);
+  const { currentUser, userId, isNewUser, setIsNewUser } =
+    useContext(GlobalContext);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   !currentUser && navigate("/auth");
-  // }, [currentUser]);
+  useEffect(() => {
+    (!currentUser || !userId || userId === "") && navigate("/auth");
+  }, [currentUser, navigate, userId]);
 
   const ref1 = useRef(null);
   const ref2 = useRef(null);

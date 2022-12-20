@@ -1,3 +1,4 @@
+import { CollectionReference, DocumentData } from "firebase/firestore";
 import { ReactElement } from "react";
 
 export interface ICreateBudget {
@@ -18,6 +19,8 @@ export interface ITheme {
   background: string;
   herobg: string;
   border: string;
+  cardShadow1: string;
+  cardShadow2: string;
 }
 
 export interface IFormProps {
@@ -48,6 +51,7 @@ export type ContextProps = {
   emailSignIn?: (formData: { email: string; password: string }) => void;
   emailSignUp?: (formData: { email: string; password: string }) => void;
   currentUser?: any;
+  userId?: string;
   isNewUser?: boolean;
   budgets?: any[];
   setIsNewUser?: (state: boolean) => void;
@@ -56,5 +60,6 @@ export type ContextProps = {
     title: string;
     description: string;
     budgetType: string;
+    ownerId: string;
   }) => void;
 };

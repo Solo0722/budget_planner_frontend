@@ -13,7 +13,7 @@ const CreateBudget = ({
 }: ICreateBudget) => {
   const [form] = Form.useForm();
 
-  const { createNewBudget } = useContext(GlobalContext);
+  const { createNewBudget, userId } = useContext(GlobalContext);
 
   const onFinish = (values: {
     title: string;
@@ -22,10 +22,10 @@ const CreateBudget = ({
   }) => {
     console.log("Success:", values);
 
-    createNewBudget?.(values);
+    createNewBudget?.({ ...values, ownerId: userId || "" });
     form.resetFields();
     closeModal();
-    window.location.reload();
+    // window.location.reload();
   };
 
   const onFinishFailed = (errorInfo: any) => {

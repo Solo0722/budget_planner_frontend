@@ -4,14 +4,14 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import React, { createContext, useState } from "react";
+import React, { createContext } from "react";
 import { auth, colRef, db, provider } from "../utils/firebase";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "antd";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import { ContextProps, ProviderProps } from "../utils/@types";
-import { addDoc, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { addDoc, getDocs, query, where } from "firebase/firestore";
 
 export const GlobalContext = createContext<ContextProps>({});
 
@@ -19,6 +19,7 @@ const GlobalProvider = ({ children }: ProviderProps) => {
   const [currentUser, setCurrentUser] = useLocalStorage("currentUser", {});
   const [isNewUser, setIsNewUser] = useLocalStorage("isNewUser", false);
   const [budgets, setBudgets] = useLocalStorage("budgets", []);
+  const [userId, setUserId] = useLocalStorage("userId", "");
 
   const navigate = useNavigate();
 
@@ -27,6 +28,7 @@ const GlobalProvider = ({ children }: ProviderProps) => {
     signInWithPopup(auth, provider)
       .then((result) => {
         setCurrentUser(result);
+        setUserId(result.user.uid);
         navigate("/");
         currentUser?._tokenResponse?.isNewUser && setIsNewUser(true);
       })
@@ -37,6 +39,7 @@ const GlobalProvider = ({ children }: ProviderProps) => {
     signInWithEmailAndPassword(auth, formData.email, formData.password)
       .then((result) => {
         setCurrentUser(result);
+        setUserId(result.user.uid);
         navigate("/");
       })
       .catch((err) => console.log(err));
@@ -46,6 +49,7 @@ const GlobalProvider = ({ children }: ProviderProps) => {
     createUserWithEmailAndPassword(auth, formData.email, formData.password)
       .then((result) => {
         setCurrentUser(result);
+        setUserId(result.user.uid);
         setIsNewUser(true);
         navigate("/");
       })
@@ -70,15 +74,20 @@ const GlobalProvider = ({ children }: ProviderProps) => {
 
   //database
   const getAllBudgets = (bt?: string) => {
-    const q = query(colRef, where("budgetType", "==", bt ? bt : ""));
+    const q = query(
+      colRef,
+      where("ownerId", "==", userId),
+      where("budgetType", "==", bt ? bt : "")
+    );
 
-    getDocs(bt ? q : colRef)
+    const allQ = query(colRef, where("ownerId", "==", userId));
+
+    getDocs(bt ? q : allQ)
       .then((snapshot) => {
         let budg: object[] = [];
         snapshot.docs.forEach((doc) => {
           budg.push({ ...doc.data(), id: doc.id });
         });
-        console.log(budg);
         setBudgets(budg);
       })
       .catch((err) => console.log(err));
@@ -88,13 +97,14 @@ const GlobalProvider = ({ children }: ProviderProps) => {
     title: string;
     description: string;
     budgetType: string;
+    ownerId: string;
   }) => {
     addDoc(colRef, budgetData)
-      .then(() => {})
+      .then(() => {
+        window.location.reload();
+      })
       .catch((err) => console.log(err));
   };
-
- 
 
   return (
     <GlobalContext.Provider
@@ -105,6 +115,7 @@ const GlobalProvider = ({ children }: ProviderProps) => {
         signUserOut,
         getAllBudgets,
         createNewBudget,
+        userId,
         currentUser,
         isNewUser,
         setIsNewUser,

@@ -48,8 +48,8 @@ const BudgetCardWrapper = styled.div`
   padding: 1rem;
   border-radius: 7px;
   margin: 10px 0;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  box-shadow: ${({ theme }) => theme.cardShadow1} 0px 1px 3px 0px,
+    ${({ theme }) => theme.cardShadow2} 0px 1px 2px 0px;
   transition: all 0.1s cubic-bezier(0.645, 0.045, 0.355, 1) 0s,
     opacity 0.2s cubic-bezier(0.645, 0.045, 0.355, 1) 0.1s,
     transform 0.2s cubic-bezier(0.645, 0.045, 0.355, 1) 0.1s;

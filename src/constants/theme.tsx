@@ -6,6 +6,8 @@ export const lightTheme: ITheme = {
   background: "#363537",
   herobg: "#fafbf8",
   border: "rgba(0,0,0,0.1)",
+  cardShadow1: "rgba(0, 0, 0, 0.1)",
+  cardShadow2: "rgba(0, 0, 0, 0.06)",
 };
 
 export const darkTheme: ITheme = {
@@ -14,4 +16,6 @@ export const darkTheme: ITheme = {
   background: "#999",
   herobg: "#1a1b18",
   border: "rgba(255,255,255,0.1)",
+  cardShadow1: "rgba(0, 0, 0, 0.3)",
+  cardShadow2: "rgba(0, 0, 0, 0.26)"
 };

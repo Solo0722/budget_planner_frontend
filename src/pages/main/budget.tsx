@@ -10,6 +10,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Toolbar from "../../components/Toolbar";
 import { db } from "../../utils/firebase";
+import { useContext } from "react";
+import { GlobalContext } from "../../context/context";
 
 const Budget = () => {
   const { budgetId } = useParams();
@@ -19,14 +21,14 @@ const Budget = () => {
   console.log(budgetId);
 
   const getSingleBudget = (budgetId: string) => {
-    const docRef = doc(db, "budgets", budgetId);
+    const docRef = doc(db, "budgets" || "", budgetId);
     getDoc(docRef)
       .then((doc: any) => setCurrentBudget(doc.data()))
       .catch((err) => console.log(err));
   };
 
   const deleteBudget = (budgetId: string) => {
-    const docRef = doc(db, "budgets", budgetId);
+    const docRef = doc(db, "budgets" || "", budgetId);
     Modal.confirm({
       title: "Are you sure you want to delete this budget?",
       icon: <ExclamationCircleFilled />,
