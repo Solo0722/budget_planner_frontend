@@ -1,9 +1,10 @@
 import {
   DeleteFilled,
   ExclamationCircleFilled,
+  PlusCircleFilled,
   PrinterOutlined,
 } from "@ant-design/icons";
-import { Button, Modal, Tooltip } from "antd";
+import { Button, Empty, Modal, Space, Tooltip } from "antd";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -12,6 +13,7 @@ import Toolbar from "../../components/Toolbar";
 import { db } from "../../utils/firebase";
 import { useContext } from "react";
 import { GlobalContext } from "../../context/context";
+import IncomeExpenseBox from "../../components/IncomeExpenseBox";
 
 const Budget = () => {
   const { budgetId } = useParams();
@@ -66,6 +68,26 @@ const Budget = () => {
           </Tooltip>,
         ]}
       />
+      <BodyWrapper>
+        <BudgetSummaryBar>
+          <div>
+            <h5>Total Income</h5>
+            <p>$10000</p>
+          </div>
+          <div>
+            <h5>Total Expenses</h5>
+            <p>$10000</p>
+          </div>
+          <div>
+            <h5>Total Savings</h5>
+            <p>$10000</p>
+          </div>
+        </BudgetSummaryBar>
+        <ExpenseAndIncomeContainer>
+          <IncomeExpenseBox title="Income" />
+          <IncomeExpenseBox title="Expenses" />
+        </ExpenseAndIncomeContainer>
+      </BodyWrapper>
     </BudgetPageWrapper>
   );
 };
@@ -73,6 +95,51 @@ const Budget = () => {
 const BudgetPageWrapper = styled.div`
   width: 100%;
   height: 100%;
+`;
+
+const BodyWrapper = styled.div`
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+`;
+
+const BudgetSummaryBar = styled.div`
+  width: 100%;
+  padding: 1rem;
+  /* border-radius: 7px; */
+  margin: 10px 0;
+  box-shadow: ${({ theme }) => theme.cardShadow1} 0px 1px 3px 0px,
+    ${({ theme }) => theme.cardShadow2} 0px 1px 2px 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  && div {
+    height: 100%;
+    text-align: center;
+  }
+
+  && div h5 {
+    margin-bottom: 0.5rem;
+    color: ${({ theme }) => theme.primaryColor};
+  }
+`;
+
+const ExpenseAndIncomeContainer = styled.div`
+  width: 100%;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  @media screen and (max-width: 600px) {
+    & {
+      flex-direction: column;
+    }
+  }
 `;
 
 export default Budget;
